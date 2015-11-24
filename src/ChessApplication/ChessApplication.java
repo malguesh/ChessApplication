@@ -14,20 +14,29 @@ public class ChessApplication extends Application {
 	@Override
 	public void init() {
 		// initialize the layout, create a CustomControl and it to the layout
+		sp_mainlayout = new StackPane();
+		cc_custom = new CustomControl();
+		sp_mainlayout.getChildren().addAll(cc_custom);		
 	}
 	// overridden start method
 	@Override
 	public void start(Stage primaryStage) {
 		// set the title and scene, and show the stage
+		primaryStage.setTitle("ChessApplication");
+		primaryStage.setScene(new Scene(sp_mainlayout, 800, 800));
+		primaryStage.show();
+
 	}
 
 	// overridden stop method
 	@Override
 	public void stop() {
+		System.out.println("ChessApplication stopped");
 	}
 	
 	// entry point into our program to launch our JavaFX application
 	public static void main(String[] args) {
+		launch(args);
 	}
 	
 	// private fields for this class
