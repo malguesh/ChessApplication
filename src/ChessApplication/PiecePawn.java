@@ -1,4 +1,4 @@
-package project.template;
+package ChessApplication;
 
 public class PiecePawn extends Piece{
 
