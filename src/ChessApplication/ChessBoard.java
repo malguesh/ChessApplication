@@ -1,14 +1,28 @@
 package ChessApplication;
 
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 public class ChessBoard extends Pane {
 	
 	public ChessBoard() {
 		//initalize the board: background, data structures, inital layout of pieces
-		
-		resetGame();
+		background = new Rectangle();
+		background.setFill(Color.WHITE);
+		getChildren().addAll(background);
+
+		// initialize board array to the correct size		
+		board = new int[boardWidth][boardHeight];
+
+		// initialize pieces array to the correct size
+		pieces = new Piece[8][8];
+
+
+		// set the current player to white
+		current_player = PlayerWhite;
+
+/*		resetGame(); */
 	}
 	
 	//resize method
@@ -62,6 +76,10 @@ public class ChessBoard extends Pane {
 	
 	public boolean IsPieceSelected() {
 		return (pieceSelected);
+	}
+	
+	public int winner() {
+		return winner;
 	}
 	
 	//private fields
