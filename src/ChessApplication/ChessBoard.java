@@ -8,6 +8,7 @@ public class ChessBoard extends Pane {
 	public ChessBoard() {
 		//initalize the board: background, data structures, inital layout of pieces
 		
+		resetGame();
 	}
 	
 	//resize method
@@ -50,13 +51,17 @@ public class ChessBoard extends Pane {
 	}
 	
 	//select piece method
-	public void selectPiece(int x, int y) {
+	public void selectPiece(double x, double y) {
 		
 	}
 	
 	//move piece method
-	public void movePiece(int x, int y) {
+	public void movePiece(double x, double y) {
 		
+	}
+	
+	public boolean IsPieceSelected() {
+		return (pieceSelected);
 	}
 	
 	//private fields
@@ -68,6 +73,7 @@ public class ChessBoard extends Pane {
 	private double cell_width;			// width of a cell in the board
 	private double cell_height; 		// height of a cell in the board
 	private int current_player; 		// hold the value of the current player (PlayerRed or Player Yellow) 
+	private boolean pieceSelected = false;
 
 	// constants to be inserted into the 2D board array to keep track of the location of cells containing 
 	// empty, white and black pieces 

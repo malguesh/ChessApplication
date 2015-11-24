@@ -16,7 +16,12 @@ public abstract class Piece {
 	}
 	
 	//move method
+	public void movePiece(double x, double y) {
+		
+	}
 	
 	//capture method
-	
+	public void getCaptured() {
+		
+	}
 }

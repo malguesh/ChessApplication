@@ -24,8 +24,10 @@ public class CustomControl extends Control {
 		setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				chessBoard.selectPiece(event.getX());
-				chessBoard.movePiece();
+				if (!chessBoard.IsPieceSelected())
+					chessBoard.selectPiece(event.getX(), event.getY());
+				else
+					chessBoard.movePiece(event.getX(), event.getY());
 			}
 		});
 	
