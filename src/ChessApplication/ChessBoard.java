@@ -18,7 +18,6 @@ public class ChessBoard extends Pane {
 		// initialize pieces array to the correct size
 		pieces = new Piece[8][8];
 
-
 		// set the current player to white
 		current_player = PlayerWhite;
 

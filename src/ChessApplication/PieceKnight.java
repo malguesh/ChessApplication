@@ -1,5 +1,5 @@
 package ChessApplication;
 
-public class PieceKnight extends Piece{
-
-}
+//public class PieceKnight extends Piece{
+//
+//}
