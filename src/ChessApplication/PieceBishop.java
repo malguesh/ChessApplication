@@ -20,7 +20,6 @@ public class PieceBishop extends Piece{
 		List<Vec2d> moves = new ArrayList<Vec2d>();
 
 		for (int xpos = x - 1, ypos = y - 1; xpos >= 0 && ypos >= 0; --xpos, --ypos) {
-			System.out.println("PUTAIN");
 			if (board[xpos][ypos] == null)
 				moves.add(new Vec2d(xpos, ypos));
 			else if (board[xpos][ypos].GetType() != GetType())

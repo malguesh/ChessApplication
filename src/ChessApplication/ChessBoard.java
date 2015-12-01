@@ -39,14 +39,14 @@ public class ChessBoard extends Pane {
 		}
 
 		// initialize the black pieces on the board
-//		pieces[0][0] = new PieceRook(pieces[0][0].BLACK);
-//		pieces[1][0] = new PieceKnight(pieces[1][0].BLACK);
+		pieces[0][0] = new PieceRook(pieces[0][0].BLACK);
+		pieces[1][0] = new PieceKnight(pieces[1][0].BLACK);
 		pieces[2][0] = new PieceBishop(pieces[2][0].BLACK);
-//		pieces[3][0] = new PieceQueen(pieces[3][0].BLACK);
+		pieces[3][0] = new PieceQueen(pieces[3][0].BLACK);
 		pieces[4][0] = new PieceKing(pieces[4][0].BLACK);
 		pieces[5][0] = new PieceBishop(pieces[5][0].BLACK);
-//		pieces[6][0] = new PieceKnight(pieces[6][0].BLACK);
-//		pieces[7][0] = new PieceRook(pieces[7][0].BLACK);
+		pieces[6][0] = new PieceKnight(pieces[6][0].BLACK);
+		pieces[7][0] = new PieceRook(pieces[7][0].BLACK);
 		for (int i = 0; i < boardWidth; i++) {
 			int j = 1;
 			pieces[i][j] = new PiecePawn(pieces[i][j].BLACK);
@@ -57,14 +57,14 @@ public class ChessBoard extends Pane {
 			int j = 6;
 			pieces[i][j] = new PiecePawn(pieces[i][j].WHITE);
 		}
-//		pieces[0][7] = new PieceRook(pieces[0][7].WHITE);
-//		pieces[1][7] = new PieceKnight(pieces[1][7].WHITE);
+		pieces[0][7] = new PieceRook(pieces[0][7].WHITE);
+		pieces[1][7] = new PieceKnight(pieces[1][7].WHITE);
 		pieces[2][7] = new PieceBishop(pieces[2][7].WHITE);
-//		pieces[3][7] = new PieceQueen(pieces[3][7].WHITE);
+		pieces[3][7] = new PieceQueen(pieces[3][7].WHITE);
 		pieces[4][7] = new PieceKing(pieces[4][7].WHITE);
 		pieces[5][7] = new PieceBishop(pieces[5][7].WHITE);
-//		pieces[6][7] = new PieceKnight(pieces[6][7].WHITE);
-//		pieces[7][7] = new PieceRook(pieces[7][7].WHITE);
+		pieces[6][7] = new PieceKnight(pieces[6][7].WHITE);
+		pieces[7][7] = new PieceRook(pieces[7][7].WHITE);
 		
 		for (int i = 0; i < 8; ++i)
 			for (int j = 0; j < 8; ++j)
