@@ -19,9 +19,9 @@ public class PiecePawn extends Piece{
 			{
 				if (board[x][y + 1] == null)
 					moves.add(new Vec2d(x, y + 1));
-				if (x > 0 && board[x - 1][y + 1] != null && board[x - 1][y + 1].GetType() == WHITE)
+				if (x > 0 && board[x - 1][y + 1] != null && board[x - 1][y + 1].GetType() != GetType())
 					moves.add(new Vec2d(x - 1, y + 1));
-				if (x < 7 && board[x + 1][y + 1] != null && board[x + 1][y + 1].GetType() == WHITE)
+				if (x < 7 && board[x + 1][y + 1] != null && board[x + 1][y + 1].GetType() != GetType())
 					moves.add(new Vec2d(x + 1, y + 1));
 			}
 		}
@@ -30,9 +30,9 @@ public class PiecePawn extends Piece{
 			{
 				if (board[x][y - 1] == null)
 					moves.add(new Vec2d(x, y - 1));
-				if (x > 0 && board[x - 1][y - 1] != null && board[x - 1][y - 1].GetType() == BLACK)
+				if (x > 0 && board[x - 1][y - 1] != null && board[x - 1][y - 1].GetType() != GetType())
 					moves.add(new Vec2d(x - 1, y - 1));
-				if (x < 7 && board[x + 1][y - 1] != null && board[x + 1][y - 1].GetType() == BLACK)
+				if (x < 7 && board[x + 1][y - 1] != null && board[x + 1][y - 1].GetType() != GetType())
 					moves.add(new Vec2d(x + 1, y - 1));
 			}
 		}
