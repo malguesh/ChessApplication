@@ -1,5 +1,7 @@
 package ChessApplication;
 
+import com.sun.javafx.geom.Vec2d;
+
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -127,20 +129,61 @@ public class ChessBoard extends Pane {
 	}
 	
 	//select piece method
-	public void selectPiece(double x, double y) {
+	public void selectBox(double x, double y) {
 		int column = (int) (x / cell_width);
 		int line = (int) (y / cell_height);
 		
-		boxes[column][line].TriggerSelect();
+		if (pieces[column][line] != null && pieces[column][line].GetType() == current_player)
+		{
+			for (int i = 0; i < boardWidth; ++i)
+				for (int j = 0; j < boardHeight; ++j)
+				{
+					boxes[i][j].SetHighlighted(false);
+					boxes[i][j].SetSelected(false);
+				}
+			boxes[column][line].TriggerSelect();
+			for (Vec2d pos : pieces[column][line].getMoves(column, line, pieces)) {
+				boxes[(int) pos.x][(int) pos.y].TriggerHighlight();
+			}
+			if (pieces[column][line] == pieceSelected)
+			{
+				pieceSelected = null;
+				selectedPiecePos = null;
+			}
+			else
+			{
+				pieceSelected = pieces[column][line];
+				selectedPiecePos = new Vec2d(column, line);
+			}
+		}
+		else if (pieceSelected != null)
+		{
+			if (boxes[column][line].IsHighlighted())
+				movePiece(column, line);
+			for (int i = 0; i < boardWidth; ++i)
+				for (int j = 0; j < boardHeight; ++j)
+				{
+					boxes[i][j].SetHighlighted(false);
+					boxes[i][j].SetSelected(false);
+				}
+			pieceSelected = null;
+			selectedPiecePos = null;
+		}
 	}
 	
 	//move piece method
-	public void movePiece(double x, double y) {
+	public void movePiece(int x, int y) {
+		pieceSelected.view.relocate(x * cell_width, y * cell_height);
+		if (pieces[x][y] != null)
+			getChildren().remove(pieces[x][y].view);
+		pieces[x][y] = pieceSelected;
+		pieces[(int) selectedPiecePos.x][(int) selectedPiecePos.y] = null;
+		current_player = (current_player == PlayerWhite ? PlayerBlack : PlayerWhite);
 		
 	}
 	
 	public boolean IsPieceSelected() {
-		return (pieceSelected);
+		return (pieceSelected == null ? false : true);
 	}
 	
 	public int winner() {
@@ -157,7 +200,8 @@ public class ChessBoard extends Pane {
 	private double cell_width;			// width of a cell in the board
 	private double cell_height; 		// height of a cell in the board
 	private int current_player; 		// hold the value of the current player (PlayerWhite or PlayerBlack) 
-	private boolean pieceSelected = false;
+	private Piece pieceSelected = null;
+	private Vec2d selectedPiecePos = null;
 
 	// constants to be inserted into the 2D board array to keep track of the location of cells containing 
 	// empty, white and black pieces 

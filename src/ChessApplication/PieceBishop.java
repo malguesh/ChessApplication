@@ -19,7 +19,8 @@ public class PieceBishop extends Piece{
 	public List<Vec2d> getMoves(int x, int y, Piece[][] board) {
 		List<Vec2d> moves = new ArrayList<Vec2d>();
 
-		for (int xpos = x, ypos = y; x >= 0 && y >= 0; --x, --y) {
+		for (int xpos = x - 1, ypos = y - 1; xpos >= 0 && ypos >= 0; --xpos, --ypos) {
+			System.out.println("PUTAIN");
 			if (board[xpos][ypos] == null)
 				moves.add(new Vec2d(xpos, ypos));
 			else if (board[xpos][ypos].GetType() != GetType())
@@ -30,7 +31,7 @@ public class PieceBishop extends Piece{
 			else
 				break;
 		}
-		for (int xpos = x, ypos = y; x >= 0 && y < board.length; --x, ++y) {
+		for (int xpos = x - 1, ypos = y + 1; xpos >= 0 && ypos < board.length; --xpos, ++ypos) {
 			if (board[xpos][ypos] == null)
 				moves.add(new Vec2d(xpos, ypos));
 			else if (board[xpos][ypos].GetType() != GetType())
@@ -41,7 +42,7 @@ public class PieceBishop extends Piece{
 			else
 				break;
 		}
-		for (int xpos = x, ypos = y; x < board.length && y < board.length; ++x, ++y) {
+		for (int xpos = x + 1, ypos = y + 1; xpos < board.length && ypos < board.length; ++xpos, ++ypos) {
 			if (board[xpos][ypos] == null)
 				moves.add(new Vec2d(xpos, ypos));
 			else if (board[xpos][ypos].GetType() != GetType())
@@ -52,7 +53,7 @@ public class PieceBishop extends Piece{
 			else
 				break;
 		}
-		for (int xpos = x, ypos = y; x < board.length && y >= 0; ++x, --y) {
+		for (int xpos = x + 1, ypos = y - 1; xpos < board.length && ypos >= 0; ++xpos, --ypos) {
 			if (board[xpos][ypos] == null)
 				moves.add(new Vec2d(xpos, ypos));
 			else if (board[xpos][ypos].GetType() != GetType())

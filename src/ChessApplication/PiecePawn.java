@@ -27,6 +27,8 @@ public class PiecePawn extends Piece{
 					moves.add(new Vec2d(x - 1, y + 1));
 				if (x < 7 && board[x + 1][y + 1] != null && board[x + 1][y + 1].GetType() != GetType())
 					moves.add(new Vec2d(x + 1, y + 1));
+				if (y == 1)
+					moves.add(new Vec2d(x, y + 2));
 			}
 		}
 		else {
@@ -38,8 +40,12 @@ public class PiecePawn extends Piece{
 					moves.add(new Vec2d(x - 1, y - 1));
 				if (x < 7 && board[x + 1][y - 1] != null && board[x + 1][y - 1].GetType() != GetType())
 					moves.add(new Vec2d(x + 1, y - 1));
+				if (y == 6)
+					moves.add(new Vec2d(x, y - 2));
 			}
 		}
 		return (moves);
 	}
+	
+	private Boolean moved = false;
 }

@@ -43,9 +43,36 @@ class Box extends Group {
 	public void TriggerSelect()
 	{
 		if (selected == false)
-			square.setFill(Color.GREEN);
+			square.setFill(new Color(color.getRed() - 0.5, (color.getGreen() + 0.5 > 1 ? 1 : color.getGreen() + 0.5) , color.getBlue() - 0.5, color.getOpacity()));
 		else
 			square.setFill(color);
+		selected = !selected;
+	}
+
+	public void TriggerHighlight()
+	{
+		if (highlighted == false)
+			square.setFill(new Color((color.getRed() + 0.5 > 1 ? 1 : color.getRed() + 0.5), (color.getGreen() + 0.5 > 1 ? 1 : color.getGreen() + 0.5), color.getBlue() - 0.5, color.getOpacity()));
+		else
+			square.setFill(color);
+		highlighted = !highlighted;
+	}
+	
+	public Boolean IsHighlighted()
+	{
+		return (highlighted);
+	}
+	
+	public void SetSelected(Boolean value)
+	{
+		selected = value;
+		square.setFill(color);
+	}
+
+	public void SetHighlighted(Boolean value)
+	{
+		highlighted = value;
+		square.setFill(color);
 	}
 
 	// private fields of the class
@@ -53,4 +80,5 @@ class Box extends Group {
 	private Translate pos; 		//translate to set the position of this box
 	private Color color;
 	private Boolean selected = false;
+	private Boolean highlighted = false;
 }
