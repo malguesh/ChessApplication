@@ -50,7 +50,6 @@ public class ChessBoard extends Pane {
 		//call the superclass resize method  
 		super.resize(width, height);
 
-		System.out.println("Lolilol");
 		// resize the rectangle to take the full size of the widget 
 		background.setWidth(width);
 		background.setHeight(height);

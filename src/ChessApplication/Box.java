@@ -27,7 +27,6 @@ class Box extends Group {
 	public void resize(double width, double height) {
 		// call the super class method and update the size of the square representing the box
 		super.resize(width, height);
-		System.out.println("lol");
 		square.setWidth(width); square.setHeight(height);
 	}
 
