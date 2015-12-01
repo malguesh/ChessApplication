@@ -5,10 +5,14 @@ import java.util.List;
 
 import com.sun.javafx.geom.Vec2d;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 public class PiecePawn extends Piece{
 	public PiecePawn(int type) {
 		super(type);
-		// TODO Auto-generated constructor stub
+		image = new Image("file:assets/" + (type == BLACK ? "black" : "white") + "_pawn.png");
+		view = new ImageView(image);
 	}
 
 	public List<Vec2d> getMoves(int x, int y, Piece[][] board) {

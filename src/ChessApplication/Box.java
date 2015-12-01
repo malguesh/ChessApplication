@@ -20,6 +20,7 @@ class Box extends Group {
 		getChildren().addAll(square);
 		square.getTransforms().add(pos);
 		square.setFill(color);
+		this.color = color;
 	}
 
 	// overridden version of the resize method
@@ -38,8 +39,18 @@ class Box extends Group {
 //		pos.setX(0);
 //		pos.setY(0);		
 //	}
+	
+	public void TriggerSelect()
+	{
+		if (selected == false)
+			square.setFill(Color.GREEN);
+		else
+			square.setFill(color);
+	}
 
 	// private fields of the class
 	private Rectangle square; 			// box for rendering this box
 	private Translate pos; 		//translate to set the position of this box
+	private Color color;
+	private Boolean selected = false;
 }
