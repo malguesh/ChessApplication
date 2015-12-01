@@ -19,13 +19,13 @@ public class PieceKing extends Piece{
     public List<Vec2d> getMoves(int x, int y, Piece[][] board) {
         List<Vec2d> moves = new ArrayList<Vec2d>();
 
-        if (x < 7 && (board[x + 1][y] == null || board[x + 1][y].GetType() != GetType()))
+        if (x < board.length - 1 && (board[x + 1][y] == null || board[x + 1][y].GetType() != GetType()))
             moves.add(new Vec2d(x + 1, y));
-        if (x < 7 && y < 7 && (board[x + 1][y + 1] == null || board[x + 1][y + 1].GetType() != GetType()))
+        if (x < board.length - 1 && y < board.length - 1 && (board[x + 1][y + 1] == null || board[x + 1][y + 1].GetType() != GetType()))
             moves.add(new Vec2d(x + 1, y + 1));
-        if (y < 7 && (board[x][y + 1] == null || board[x][y + 1].GetType() != GetType()))
+        if (y < board.length - 1 && (board[x][y + 1] == null || board[x][y + 1].GetType() != GetType()))
             moves.add(new Vec2d(x, y + 1));
-        if (x > 0 && y < 7 && (board[x - 1][y + 1] == null || board[x - 1][y + 1].GetType() != GetType()))
+        if (x > 0 && y < board.length - 1 && (board[x - 1][y + 1] == null || board[x - 1][y + 1].GetType() != GetType()))
             moves.add(new Vec2d(x - 1, y + 1));
         if (x > 0 && (board[x - 1][y] == null || board[x - 1][y].GetType() != GetType()))
             moves.add(new Vec2d(x - 1, y));
@@ -33,7 +33,7 @@ public class PieceKing extends Piece{
             moves.add(new Vec2d(x - 1, y - 1));
         if (y > 0 && (board[x][y - 1] == null || board[x][y - 1].GetType() != GetType()))
             moves.add(new Vec2d(x, y - 1));
-        if (x < 7 && y > 0 && (board[x + 1][y - 1] == null || board[x + 1][y - 1].GetType() != GetType()))
+        if (x < board.length - 1 && y > 0 && (board[x + 1][y - 1] == null || board[x + 1][y - 1].GetType() != GetType()))
             moves.add(new Vec2d(x + 1, y - 1));
         return (moves);
     }

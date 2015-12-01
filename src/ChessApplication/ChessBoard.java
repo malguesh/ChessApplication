@@ -141,19 +141,28 @@ public class ChessBoard extends Pane {
 					boxes[i][j].SetHighlighted(false);
 					boxes[i][j].SetSelected(false);
 				}
-			boxes[column][line].TriggerSelect();
-			for (Vec2d pos : pieces[column][line].getMoves(column, line, pieces)) {
-				boxes[(int) pos.x][(int) pos.y].TriggerHighlight();
-			}
-			if (pieces[column][line] == pieceSelected)
+			if (pieceSelected != pieces[column][line])
 			{
 				pieceSelected = null;
 				selectedPiecePos = null;
+				boxes[column][line].TriggerSelect();
+				for (Vec2d pos : pieces[column][line].getMoves(column, line, pieces)) {
+					boxes[(int) pos.x][(int) pos.y].TriggerHighlight();
+				}
+				if (pieces[column][line] == pieceSelected)
+				{
+					pieceSelected = null;
+					selectedPiecePos = null;
+				}
+				else
+				{
+					pieceSelected = pieces[column][line];
+					selectedPiecePos = new Vec2d(column, line);
+				}
 			}
-			else
-			{
-				pieceSelected = pieces[column][line];
-				selectedPiecePos = new Vec2d(column, line);
+			else {
+				pieceSelected = null;
+				selectedPiecePos = null;
 			}
 		}
 		else if (pieceSelected != null)
@@ -179,7 +188,6 @@ public class ChessBoard extends Pane {
 		pieces[x][y] = pieceSelected;
 		pieces[(int) selectedPiecePos.x][(int) selectedPiecePos.y] = null;
 		current_player = (current_player == PlayerWhite ? PlayerBlack : PlayerWhite);
-		
 	}
 	
 	public boolean IsPieceSelected() {
