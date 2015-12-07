@@ -19,22 +19,94 @@ public class PieceQueen extends Piece {
     public List<Vec2d> getMoves(int x, int y, Piece[][] board) {
         List<Vec2d> moves = new ArrayList<Vec2d>();
 
-        if (board[x + 1][y] == null || board[x + 1][y].GetType() != GetType())
-            moves.add(new Vec2d(x + 1, y));
-        if (board[x + 1][y + 1] == null || board[x + 1][y + 1].GetType() != GetType())
-            moves.add(new Vec2d(x + 1, y + 1));
-        if (board[x][y + 1] == null || board[x][y + 1].GetType() != GetType())
-            moves.add(new Vec2d(x, y + 1));
-        if (board[x - 1][y + 1] == null || board[x - 1][y + 1].GetType() != GetType())
-            moves.add(new Vec2d(x - 1, y + 1));
-        if (board[x - 1][y] == null || board[x - 1][y].GetType() != GetType())
-            moves.add(new Vec2d(x - 1, y));
-        if (board[x - 1][y - 1] == null || board[x - 1][y - 1].GetType() != GetType())
-            moves.add(new Vec2d(x - 1, y - 1));
-        if (board[x][y - 1] == null || board[x][y - 1].GetType() != GetType())
-            moves.add(new Vec2d(x, y - 1));
-        if (board[x + 1][y - 1] == null || board[x + 1][y - 1].GetType() != GetType())
-            moves.add(new Vec2d(x + 1, y - 1));
+		for (int xpos = x - 1, ypos = y - 1; xpos >= 0 && ypos >= 0; --xpos, --ypos) {
+			if (board[xpos][ypos] == null)
+				moves.add(new Vec2d(xpos, ypos));
+			else if (board[xpos][ypos].GetType() != GetType())
+			{
+				moves.add(new Vec2d(xpos, ypos));
+				break;
+			}
+			else
+				break;
+		}
+		for (int xpos = x - 1, ypos = y + 1; xpos >= 0 && ypos < board.length; --xpos, ++ypos) {
+			if (board[xpos][ypos] == null)
+				moves.add(new Vec2d(xpos, ypos));
+			else if (board[xpos][ypos].GetType() != GetType())
+			{
+				moves.add(new Vec2d(xpos, ypos));
+				break;
+			}
+			else
+				break;
+		}
+		for (int xpos = x + 1, ypos = y + 1; xpos < board.length && ypos < board.length; ++xpos, ++ypos) {
+			if (board[xpos][ypos] == null)
+				moves.add(new Vec2d(xpos, ypos));
+			else if (board[xpos][ypos].GetType() != GetType())
+			{
+				moves.add(new Vec2d(xpos, ypos));
+				break;
+			}
+			else
+				break;
+		}
+		for (int xpos = x + 1, ypos = y - 1; xpos < board.length && ypos >= 0; ++xpos, --ypos) {
+			if (board[xpos][ypos] == null)
+				moves.add(new Vec2d(xpos, ypos));
+			else if (board[xpos][ypos].GetType() != GetType())
+			{
+				moves.add(new Vec2d(xpos, ypos));
+				break;
+			}
+			else
+				break;
+		}
+		for (int xpos = x - 1; xpos >= 0; --xpos) {
+			if (board[xpos][y] == null)
+				moves.add(new Vec2d(xpos, y));
+			else if (board[xpos][y].GetType() != GetType())
+			{
+				moves.add(new Vec2d(xpos, y));
+				break;
+			}
+			else
+				break;
+		}
+		for (int xpos = x + 1; xpos < board.length; ++xpos) {
+			if (board[xpos][y] == null)
+				moves.add(new Vec2d(xpos, y));
+			else if (board[xpos][y].GetType() != GetType())
+			{
+				moves.add(new Vec2d(xpos, y));
+				break;
+			}
+			else
+				break;
+		}
+		for (int ypos = y + 1; ypos < board.length; ++ypos) {
+			if (board[x][ypos] == null)
+				moves.add(new Vec2d(x, ypos));
+			else if (board[x][ypos].GetType() != GetType())
+			{
+				moves.add(new Vec2d(x, ypos));
+				break;
+			}
+			else
+				break;
+		}
+		for (int ypos = y - 1; ypos >= 0; --ypos) {
+			if (board[x][ypos] == null)
+				moves.add(new Vec2d(x, ypos));
+			else if (board[x][ypos].GetType() != GetType())
+			{
+				moves.add(new Vec2d(x, ypos));
+				break;
+			}
+			else
+				break;
+		}
         return (moves);
     }
 }
