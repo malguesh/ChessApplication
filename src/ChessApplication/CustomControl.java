@@ -42,8 +42,16 @@ public class CustomControl extends Control {
 	@Override
 	public void resize(double width, double height) {
 		// call the super class method and update the size of the board
-		super.resize(width, height);
-		chessBoard.resize(width, height);
+		if (width < height)
+		{
+			super.resize(width, width);
+			chessBoard.resize(width, width);
+		}
+		else
+		{
+			super.resize(height, height);
+			chessBoard.resize(height, height);
+		}
 	}
 
 	//private fields of the class

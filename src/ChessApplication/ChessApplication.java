@@ -4,6 +4,7 @@ package ChessApplication;
 
 //imports
 import javafx.application.Application;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
@@ -25,7 +26,6 @@ public class ChessApplication extends Application {
 		primaryStage.setTitle("ChessApplication");
 		primaryStage.setScene(new Scene(sp_mainlayout, 800, 800));
 		primaryStage.show();
-
 	}
 
 	// overridden stop method
