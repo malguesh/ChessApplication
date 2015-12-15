@@ -24,7 +24,7 @@ public class ChessApplication extends Application {
 	public void start(Stage primaryStage) {
 		// set the title and scene, and show the stage
 		primaryStage.setTitle("ChessApplication");
-		primaryStage.setScene(new Scene(sp_mainlayout, 800, 800));
+		primaryStage.setScene(new Scene(sp_mainlayout, 800, 900));
 		primaryStage.show();
 	}
 
