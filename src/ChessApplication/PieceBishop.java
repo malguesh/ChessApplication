@@ -14,6 +14,7 @@ public class PieceBishop extends Piece{
 		super(type);
 		image = new Image("file:assets/" + (type == BLACK ? "black" : "white") + "_bishop.png");
 		view = new ImageView(image);
+		pieceType = EPieceType.BISHOP;
 	}
 
 	public List<Vec2d> getMoves(int x, int y, Piece[][] board) {
@@ -62,6 +63,48 @@ public class PieceBishop extends Piece{
 			}
 			else
 				break;
+		}
+		return (moves);
+	}
+
+	public List<Vec2d> getMovesNoCheck(int x, int y, Piece[][] board) {
+		List<Vec2d> moves = new ArrayList<Vec2d>();
+
+		for (int xpos = x - 1, ypos = y - 1; xpos >= 0 && ypos >= 0; --xpos, --ypos) {
+			if (board[xpos][ypos] == null)
+				moves.add(new Vec2d(xpos, ypos));
+			else
+			{
+				moves.add(new Vec2d(xpos, ypos));
+				break;
+			}
+		}
+		for (int xpos = x - 1, ypos = y + 1; xpos >= 0 && ypos < board.length; --xpos, ++ypos) {
+			if (board[xpos][ypos] == null)
+				moves.add(new Vec2d(xpos, ypos));
+			else
+			{
+				moves.add(new Vec2d(xpos, ypos));
+				break;
+			}
+		}
+		for (int xpos = x + 1, ypos = y + 1; xpos < board.length && ypos < board.length; ++xpos, ++ypos) {
+			if (board[xpos][ypos] == null)
+				moves.add(new Vec2d(xpos, ypos));
+			else
+			{
+				moves.add(new Vec2d(xpos, ypos));
+				break;
+			}
+		}
+		for (int xpos = x + 1, ypos = y - 1; xpos < board.length && ypos >= 0; ++xpos, --ypos) {
+			if (board[xpos][ypos] == null)
+				moves.add(new Vec2d(xpos, ypos));
+			else
+			{
+				moves.add(new Vec2d(xpos, ypos));
+				break;
+			}
 		}
 		return (moves);
 	}

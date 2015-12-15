@@ -16,20 +16,31 @@ public abstract class Piece {
 	//image used to display the piece
 	protected Image image;
 	public ImageView view;
-	
+	public enum EPieceType {
+		PAWN,
+		ROOK,
+		KNIGHT,
+		BISHOP,
+		QUEEN,
+		KING,
+		NONE
+	}
+
+	public EPieceType pieceType = EPieceType.NONE;
+
 	public static final int WHITE = 1;
 	public static final int BLACK = 2;
 
 	public Piece(int type) {
 		this.type = type;
 	}
-	
+
 	public int GetType() {
 		return (type);
 	}
 	
 	//move method
-//	abstract public boolean movePiece(double x, double y);
 
 	abstract public List<Vec2d> getMoves(int x, int y, Piece[][] board);
+	abstract public List<Vec2d> getMovesNoCheck(int x, int y, Piece[][] board);
 }

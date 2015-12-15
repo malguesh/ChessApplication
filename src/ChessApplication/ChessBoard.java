@@ -2,6 +2,7 @@ package ChessApplication;
 
 import com.sun.javafx.geom.Vec2d;
 
+import javafx.scene.control.Alert;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -9,7 +10,7 @@ import javafx.scene.shape.Rectangle;
 public class ChessBoard extends Pane {
 	
 	public ChessBoard() {
-		//initalize the board: background, data structures, inital layout of pieces
+		//initalize the board: background, data structures, initial layout of pieces
 		background = new Rectangle();
 		background.setFill(Color.WHITE);
 		getChildren().addAll(background);
@@ -38,49 +39,7 @@ public class ChessBoard extends Pane {
 			}
 		}
 
-		// initialize the black pieces on the board
-		pieces[0][0] = new PieceRook(pieces[0][0].BLACK);
-		pieces[1][0] = new PieceKnight(pieces[1][0].BLACK);
-		pieces[2][0] = new PieceBishop(pieces[2][0].BLACK);
-		pieces[3][0] = new PieceQueen(pieces[3][0].BLACK);
-		pieces[4][0] = new PieceKing(pieces[4][0].BLACK);
-		pieces[5][0] = new PieceBishop(pieces[5][0].BLACK);
-		pieces[6][0] = new PieceKnight(pieces[6][0].BLACK);
-		pieces[7][0] = new PieceRook(pieces[7][0].BLACK);
-		for (int i = 0; i < boardWidth; i++) {
-			int j = 1;
-			pieces[i][j] = new PiecePawn(pieces[i][j].BLACK);
-		}
-
-		// initialize the white pieces on the board
-		for (int i = 0; i < boardWidth; i++) {
-			int j = 6;
-			pieces[i][j] = new PiecePawn(pieces[i][j].WHITE);
-		}
-		pieces[0][7] = new PieceRook(pieces[0][7].WHITE);
-		pieces[1][7] = new PieceKnight(pieces[1][7].WHITE);
-		pieces[2][7] = new PieceBishop(pieces[2][7].WHITE);
-		pieces[3][7] = new PieceQueen(pieces[3][7].WHITE);
-		pieces[4][7] = new PieceKing(pieces[4][7].WHITE);
-		pieces[5][7] = new PieceBishop(pieces[5][7].WHITE);
-		pieces[6][7] = new PieceKnight(pieces[6][7].WHITE);
-		pieces[7][7] = new PieceRook(pieces[7][7].WHITE);
-		
-		for (int i = 0; i < 8; ++i)
-			for (int j = 0; j < 8; ++j)
-				if (pieces[i][j] != null)
-					getChildren().add(pieces[i][j].view);
-		
-		// set the current player to white
-		current_player = PlayerWhite;
-
-		// call the winner method to see if there is a winner
-		int winner = winner();
-		if (winner == 1) {
-			resetGame();
-		}
-		
-		
+		resetGame();
 	}
 	
 	//resize method
@@ -122,61 +81,103 @@ public class ChessBoard extends Pane {
 			for (int j = 0; j < boardHeight; ++j)
 			{
 				board[i][j] = EMPTY;
-				getChildren().remove(pieces[i][j]);
+				if (pieces[i][j] != null)
+					getChildren().remove(pieces[i][j].view);
 				pieces[i][j] = null;
 			}
+		// initialize the black pieces on the board
+		pieces[0][0] = new PieceRook(Piece.BLACK);
+		pieces[1][0] = new PieceKnight(Piece.BLACK);
+		pieces[2][0] = new PieceBishop(Piece.BLACK);
+		pieces[3][0] = new PieceQueen(Piece.BLACK);
+		pieces[4][0] = new PieceKing(Piece.BLACK);
+		pieces[5][0] = new PieceBishop(Piece.BLACK);
+		pieces[6][0] = new PieceKnight(Piece.BLACK);
+		pieces[7][0] = new PieceRook(Piece.BLACK);
+		for (int i = 0; i < boardWidth; i++) {
+			int j = 1;
+			pieces[i][j] = new PiecePawn(Piece.BLACK);
+		}
+
+		// initialize the white pieces on the board
+		for (int i = 0; i < boardWidth; i++) {
+			int j = 6;
+			pieces[i][j] = new PiecePawn(Piece.WHITE);
+		}
+		pieces[0][7] = new PieceRook(Piece.WHITE);
+		pieces[1][7] = new PieceKnight(Piece.WHITE);
+		pieces[2][7] = new PieceBishop(Piece.WHITE);
+		pieces[3][7] = new PieceQueen(Piece.WHITE);
+		pieces[4][7] = new PieceKing(Piece.WHITE);
+		pieces[5][7] = new PieceBishop(Piece.WHITE);
+		pieces[6][7] = new PieceKnight(Piece.WHITE);
+		pieces[7][7] = new PieceRook(Piece.WHITE);
+
+		for (int i = 0; i < 8; ++i)
+			for (int j = 0; j < 8; ++j)
+				if (pieces[i][j] != null)
+					getChildren().add(pieces[i][j].view);
+
+		// set the current player to white
 		current_player = PlayerWhite;
+		pieceSelected = null;
+		selectedPiecePos = null;
+		canPlay = true;
 	}
 	
 	//select piece method
 	public void selectBox(double x, double y) {
 		int column = (int) (x / cell_width);
 		int line = (int) (y / cell_height);
-		
-		if (pieces[column][line] != null && pieces[column][line].GetType() == current_player)
+
+		if (canPlay)
 		{
-			for (int i = 0; i < boardWidth; ++i)
-				for (int j = 0; j < boardHeight; ++j)
-				{
-					boxes[i][j].SetHighlighted(false);
-					boxes[i][j].SetSelected(false);
-				}
-			if (pieceSelected != pieces[column][line])
+			if (pieces[column][line] != null && pieces[column][line].GetType() == current_player)
 			{
-				pieceSelected = null;
-				selectedPiecePos = null;
-				boxes[column][line].TriggerSelect();
-				for (Vec2d pos : pieces[column][line].getMoves(column, line, pieces)) {
-					boxes[(int) pos.x][(int) pos.y].TriggerHighlight();
-				}
-				if (pieces[column][line] == pieceSelected)
+				for (int i = 0; i < boardWidth; ++i)
+					for (int j = 0; j < boardHeight; ++j)
+					{
+						boxes[i][j].SetHighlighted(false);
+						boxes[i][j].SetSelected(false);
+					}
+				if (pieceSelected != pieces[column][line])
 				{
 					pieceSelected = null;
 					selectedPiecePos = null;
+					boxes[column][line].TriggerSelect();
+					for (Vec2d pos : pieces[column][line].getMoves(column, line, pieces)) {
+						if (GameLogic.CanMovePiece(pieces, new Vec2d(column, line), pos))
+							boxes[(int) pos.x][(int) pos.y].TriggerHighlight();
+					}
+					if (pieces[column][line] == pieceSelected)
+					{
+						pieceSelected = null;
+						selectedPiecePos = null;
+					}
+					else
+					{
+						pieceSelected = pieces[column][line];
+						selectedPiecePos = new Vec2d(column, line);
+					}
 				}
-				else
-				{
-					pieceSelected = pieces[column][line];
-					selectedPiecePos = new Vec2d(column, line);
+				else {
+					pieceSelected = null;
+					selectedPiecePos = null;
 				}
 			}
-			else {
+			else if (pieceSelected != null)
+			{
+				if (boxes[column][line].IsHighlighted())
+					movePiece(column, line);
+				for (int i = 0; i < boardWidth; ++i)
+					for (int j = 0; j < boardHeight; ++j)
+					{
+						boxes[i][j].SetHighlighted(false);
+						boxes[i][j].SetSelected(false);
+					}
 				pieceSelected = null;
 				selectedPiecePos = null;
 			}
-		}
-		else if (pieceSelected != null)
-		{
-			if (boxes[column][line].IsHighlighted())
-				movePiece(column, line);
-			for (int i = 0; i < boardWidth; ++i)
-				for (int j = 0; j < boardHeight; ++j)
-				{
-					boxes[i][j].SetHighlighted(false);
-					boxes[i][j].SetSelected(false);
-				}
-			pieceSelected = null;
-			selectedPiecePos = null;
 		}
 	}
 	
@@ -187,15 +188,34 @@ public class ChessBoard extends Pane {
 			getChildren().remove(pieces[x][y].view);
 		pieces[x][y] = pieceSelected;
 		pieces[(int) selectedPiecePos.x][(int) selectedPiecePos.y] = null;
+		if (GameLogic.CheckMate(pieces, current_player))
+		{
+			Alert alert = new Alert(Alert.AlertType.INFORMATION);
+			alert.setTitle("CheckMate !");
+			alert.setContentText("Player " + (current_player == PlayerWhite ? "White" : "Black") + " won the game !");
+			alert.showAndWait();
+			canPlay = false;
+		}
+		else if (GameLogic.Check(pieces, current_player == PlayerWhite ? PlayerBlack : PlayerWhite))
+		{
+			Alert alert = new Alert(Alert.AlertType.INFORMATION);
+			alert.setTitle("Check !");
+			alert.setContentText("Player " + (current_player == PlayerWhite ? "White" : "Black") + " put your king in check !");
+			alert.showAndWait();
+		}
+		else if (GameLogic.StaleMate(pieces, current_player))
+		{
+			Alert alert = new Alert(Alert.AlertType.INFORMATION);
+			alert.setTitle("Stalemate !");
+			alert.setContentText("Stalemate occurred !");
+			alert.showAndWait();
+			canPlay = false;
+		}
 		current_player = (current_player == PlayerWhite ? PlayerBlack : PlayerWhite);
 	}
 	
 	public boolean IsPieceSelected() {
-		return (pieceSelected == null ? false : true);
-	}
-	
-	public int winner() {
-		return winner;
+		return (pieceSelected != null);
 	}
 	
 	//private fields
@@ -207,9 +227,10 @@ public class ChessBoard extends Pane {
 	private Box[][] boxes; 		// 2D array that holds all the windows (white circles) for the board 
 	private double cell_width;			// width of a cell in the board
 	private double cell_height; 		// height of a cell in the board
-	private int current_player; 		// hold the value of the current player (PlayerWhite or PlayerBlack) 
+	public static int current_player; 		// hold the value of the current player (PlayerWhite or PlayerBlack)
 	private Piece pieceSelected = null;
 	private Vec2d selectedPiecePos = null;
+	private Boolean canPlay = true;
 
 	// constants to be inserted into the 2D board array to keep track of the location of cells containing 
 	// empty, white and black pieces 
