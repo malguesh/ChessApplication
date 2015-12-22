@@ -126,6 +126,9 @@ public class ChessBoard extends Pane {
 		pieceSelected = null;
 		selectedPiecePos = null;
 		canPlay = true;
+		check = false;
+		checkmate = false;
+		stalemate = false;
 	}
 	
 	//select piece method

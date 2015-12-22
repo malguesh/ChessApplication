@@ -113,9 +113,6 @@ public class CustomControl extends Control {
 		white_bishops = 0;
 		white_king = 0;
 		white_queen = 0;
-		chessBoard.check = false;
-		chessBoard.checkmate = false;
-		chessBoard.stalemate = false;
 		
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
