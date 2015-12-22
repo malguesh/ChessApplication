@@ -53,7 +53,7 @@ public class CustomControl extends Control {
 		setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				chessBoard.selectBox(event.getX(), event.getY());
+				chessBoard.selectBox(event.getX(), event.getY() + 50);
 				updateStatus();
 			}
 		});
