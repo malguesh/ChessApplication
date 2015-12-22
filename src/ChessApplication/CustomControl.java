@@ -1,7 +1,9 @@
 package ChessApplication;
 
 import ChessApplication.Piece.EPieceType;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.Button;
 import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
@@ -34,6 +36,7 @@ public class CustomControl extends Control {
 		blackStatusLabel2 = new Label();
 		whiteStatusLabel = new Label();
 		whiteStatusLabel2 = new Label();
+		replayButton = new Button("Replay");
 		
 		blackStatusLabel.setText("8 pawns, 2 rooks, 2 knights, 2 bishops, 1 king, 1 queen");
 		
@@ -47,6 +50,8 @@ public class CustomControl extends Control {
 		gridPane.addRow(1, new Label("White : "));
 		gridPane.addRow(1, whiteStatusLabel);
 		gridPane.addRow(1, whiteStatusLabel2);
+		gridPane.addRow(2, new Label(""));
+		gridPane.addRow(3, replayButton);
 		getChildren().add(gridPane);
 
 		// mouse clicked event handler that will try to place a piece on the board
@@ -64,6 +69,12 @@ public class CustomControl extends Control {
 			public void handle(KeyEvent event) {
 				if (event.getCode() == KeyCode.SPACE)
 					chessBoard.resetGame();
+			}
+		});
+		
+		replayButton.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent event) {
+				chessBoard.resetGame();
 			}
 		});
 	}
@@ -167,6 +178,7 @@ public class CustomControl extends Control {
 	//private fields of the class
 	private ChessBoard chessBoard;	// a Chess board
 	private GridPane gridPane;		// a GridPane to display the game status
+	private Button replayButton;
 	private Label blackStatusLabel; // label to display the numbers of every black pieces
 	private Label blackStatusLabel2; // label to display the status of the black player
 	private Label whiteStatusLabel; // label to display the numbers of every white pieces
