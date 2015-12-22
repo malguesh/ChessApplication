@@ -1,5 +1,6 @@
 package ChessApplication;
 
+import ChessApplication.Piece.EPieceType;
 import javafx.event.EventHandler;
 import javafx.scene.control.Control;
 import javafx.scene.control.Label;
@@ -26,15 +27,26 @@ public class CustomControl extends Control {
 		chessBoard = new ChessBoard();
 		getChildren().add(chessBoard);
 
+		pieces = chessBoard.getPieces();
+		
 		gridPane = new GridPane();
+		blackStatusLabel = new Label();
+		blackStatusLabel2 = new Label();
+		whiteStatusLabel = new Label();
+		whiteStatusLabel2 = new Label();
+		
+		blackStatusLabel.setText("8 pawns, 2 rooks, 2 knights, 2 bishops, 1 king, 1 queen");
+		
+		whiteStatusLabel.setText("8 pawns, 2 rooks, 2 knights, 2 bishops, 1 king, 1 queen");
+		
 		gridPane.setMinHeight(100);
 		gridPane.setHgap(50);
 		gridPane.addRow(0, new Label("Black : "));
-		gridPane.addRow(0, new Label("8 pawns, 2 rooks, 2 knights, 2 bishops, 1 king, 1 queen"));
-		gridPane.addRow(0, new Label("Check"));
+		gridPane.addRow(0, blackStatusLabel);
+		gridPane.addRow(0, blackStatusLabel2);
 		gridPane.addRow(1, new Label("White : "));
-		gridPane.addRow(1, new Label("8 pawns, 2 rooks, 2 knights, 2 bishops, 1 king, 1 queen"));
-		gridPane.addRow(1, new Label("Checkmate"));
+		gridPane.addRow(1, whiteStatusLabel);
+		gridPane.addRow(1, whiteStatusLabel2);
 		getChildren().add(gridPane);
 
 		// mouse clicked event handler that will try to place a piece on the board
@@ -42,6 +54,7 @@ public class CustomControl extends Control {
 			@Override
 			public void handle(MouseEvent event) {
 				chessBoard.selectBox(event.getX(), event.getY());
+				updateStatus();
 			}
 		});
 	
@@ -71,8 +84,106 @@ public class CustomControl extends Control {
 		chessBoard.setTranslateY(-gridPane.getMinHeight() / 2);
 		gridPane.setTranslateY(chessBoard.getHeight() - gridPane.getMinHeight() / 2);
 	}
+	
+	public void updateStatus() {
+		black_pawns = 0;
+		black_rooks = 0;
+		black_knights = 0;
+		black_bishops = 0;
+		black_king = 0;
+		black_queen = 0;
+
+		white_pawns = 0;
+		white_rooks = 0;
+		white_knights = 0;
+		white_bishops = 0;
+		white_king = 0;
+		white_queen = 0;
+		for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 8; j++) {
+				if (pieces[i][j] != null) {
+					if (pieces[i][j].GetType() == Piece.BLACK){
+						if (pieces[i][j].pieceType == EPieceType.PAWN) {
+							black_pawns = black_pawns + 1;
+						} else if (pieces[i][j].pieceType == EPieceType.ROOK) {
+							black_rooks = black_rooks + 1;
+						} else if (pieces[i][j].pieceType == EPieceType.KNIGHT) {
+							black_knights = black_knights + 1;
+						} else if (pieces[i][j].pieceType == EPieceType.BISHOP) {
+							black_bishops = black_bishops + 1;
+						} else if (pieces[i][j].pieceType == EPieceType.KING) {
+							black_king = black_king + 1;
+						} else if (pieces[i][j].pieceType == EPieceType.QUEEN) {
+							black_queen = black_queen + 1;
+						}
+					}else if (pieces[i][j].GetType() == Piece.WHITE){
+						if (pieces[i][j].pieceType == EPieceType.PAWN) {
+							white_pawns = white_pawns + 1;
+						} else if (pieces[i][j].pieceType == EPieceType.ROOK) {
+							white_rooks = white_rooks + 1;
+						} else if (pieces[i][j].pieceType == EPieceType.KNIGHT) {
+							white_knights = white_knights + 1;
+						} else if (pieces[i][j].pieceType == EPieceType.BISHOP) {
+							white_bishops = white_bishops + 1;
+						} else if (pieces[i][j].pieceType == EPieceType.KING) {
+							white_king = white_king + 1;
+						} else if (pieces[i][j].pieceType == EPieceType.QUEEN) {
+							white_queen = white_queen + 1;
+						}
+					}
+				}
+			}
+		}
+		
+		blackStatusLabel.setText(black_pawns + " pawns, " 
+		+ black_rooks + " rooks, " 
+		+ black_knights + " knights, " 
+		+ black_bishops + " bishops, " 
+		+ black_king + " king, " 
+		+ black_queen + " queen");
+		if (GameLogic.CheckMate(pieces, chessBoard.current_player) && chessBoard.current_player == chessBoard.PlayerBlack) {
+			blackStatusLabel2.setText("Checkmate");
+		} else if (GameLogic.Check(pieces, chessBoard.current_player == chessBoard.PlayerBlack ? chessBoard.PlayerWhite : chessBoard.PlayerBlack)) {
+			blackStatusLabel2.setText("Check");
+		}
+		whiteStatusLabel.setText(white_pawns + " pawns, " 
+		+ white_rooks + " rooks, " 
+		+ white_knights + " knights, " 
+		+ white_bishops + " bishops, " 
+		+ white_king + " king, " 
+		+ white_queen + " queen");
+		if (GameLogic.CheckMate(pieces, chessBoard.current_player) && chessBoard.current_player == chessBoard.PlayerWhite) {
+			whiteStatusLabel.setText("Checkmate");
+		} else if (GameLogic.Check(pieces, chessBoard.current_player == chessBoard.PlayerWhite ? chessBoard.PlayerBlack : chessBoard.PlayerWhite)) {
+			whiteStatusLabel2.setText("Check");
+		}
+	}
 
 	//private fields of the class
 	private ChessBoard chessBoard;	// a Chess board
-	private GridPane gridPane;
+	private GridPane gridPane;		// a GridPane to display the game status
+	private Label blackStatusLabel;
+	private Label blackStatusLabel2;
+	private Label whiteStatusLabel;
+	private Label whiteStatusLabel2;
+		
+	private Piece[][] pieces;		// pieces in the board
+
+	// numbers of every pieces present on the board
+	private int black_pawns = 8;
+	private int black_rooks = 2;
+	private int black_knights = 2;
+	private int black_bishops = 2;
+	private int black_king = 1;
+	private int black_queen = 1;
+
+	private int white_pawns = 8;
+	private int white_rooks = 2;
+	private int white_knights = 2;
+	private int white_bishops = 2;
+	private int white_king = 1;
+	private int white_queen = 1;
+	
+	
+
 }

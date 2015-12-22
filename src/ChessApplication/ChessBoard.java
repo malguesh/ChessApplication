@@ -218,6 +218,10 @@ public class ChessBoard extends Pane {
 		return (pieceSelected != null);
 	}
 	
+	public Piece[][] getPieces() {
+		return pieces;
+	}
+	
 	//private fields
 	private int boardWidth = 8;			// the width of the Chess board
 	private int boardHeight = 8;		// the height of the Chess board
@@ -235,8 +239,8 @@ public class ChessBoard extends Pane {
 	// constants to be inserted into the 2D board array to keep track of the location of cells containing 
 	// empty, white and black pieces 
 	private final int EMPTY = 0;		// 0 is used to indicate that a cell in the board is unoccupied
-	private final int PlayerWhite = 1;	// 1 is used to indicate that a cell in the board is occupied by a white piece
-	private final int PlayerBlack = 2; // 2 is used to indicate that a cell in the board is occupied by a black piece
+	public final int PlayerWhite = 1;	// 1 is used to indicate that a cell in the board is occupied by a white piece
+	public final int PlayerBlack = 2; // 2 is used to indicate that a cell in the board is occupied by a black piece
 	
 	int winner = 0;						// variable to determine who the current winner is: 0 - no current winner, 
 }
