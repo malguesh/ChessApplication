@@ -3,6 +3,7 @@ package ChessApplication;
 import ChessApplication.Piece.EPieceType;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
 import javafx.scene.control.Label;
@@ -166,13 +167,30 @@ public class CustomControl extends Control {
 			whiteStatusLabel2.setText("Checkmate");
 		} else if (chessBoard.check == true && chessBoard.current_player == chessBoard.PlayerWhite) {
 			whiteStatusLabel2.setText("Check");
-		} else if (chessBoard.checkmate == true) {
+		} else if (chessBoard.stalemate == true) {
 			blackStatusLabel2.setText("Stalemate");
 			whiteStatusLabel2.setText("Stalemate");
 		} else {
 			blackStatusLabel2.setText("");
 			whiteStatusLabel2.setText("");
 		}
+		if (LastPlayer != chessBoard.current_player && chessBoard.checkmate) {
+			Alert alert = new Alert(Alert.AlertType.INFORMATION);
+			alert.setTitle("CheckMate !");
+			alert.setContentText("Player " + (chessBoard.current_player == chessBoard.PlayerBlack ? "White" : "Black") + " won the game !");
+			alert.showAndWait();
+		} else if (LastPlayer != chessBoard.current_player && chessBoard.check) {
+			Alert alert = new Alert(Alert.AlertType.INFORMATION);
+			alert.setTitle("Check !");
+			alert.setContentText("Player " + (chessBoard.current_player == chessBoard.PlayerBlack ? "White" : "Black") + " put your king in check !");
+			alert.showAndWait();
+		} else if (LastPlayer != chessBoard.current_player && chessBoard.stalemate) {
+			Alert alert = new Alert(Alert.AlertType.INFORMATION);
+			alert.setTitle("Stalemate !");
+			alert.setContentText("Stalemate occurred !");
+			alert.showAndWait();
+		}
+		LastPlayer = chessBoard.current_player;
 	}
 
 	//private fields of the class
@@ -184,6 +202,7 @@ public class CustomControl extends Control {
 	private Label whiteStatusLabel; // label to display the numbers of every white pieces
 	private Label whiteStatusLabel2; // label to display the status of the white player
 	private Piece[][] pieces;		// pieces in the board
+	private int LastPlayer = 0;
 
 	// numbers of every pieces present on the board
 	private int black_pawns;

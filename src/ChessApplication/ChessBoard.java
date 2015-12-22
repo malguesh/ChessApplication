@@ -191,35 +191,11 @@ public class ChessBoard extends Pane {
 				boxes[i][j].SetHighlighted(false);
 				boxes[i][j].SetSelected(false);
 			}
-		if (GameLogic.CheckMate(pieces, current_player))
-		{
-			Alert alert = new Alert(Alert.AlertType.INFORMATION);
-			alert.setTitle("CheckMate !");
-			alert.setContentText("Player " + (current_player == PlayerWhite ? "White" : "Black") + " won the game !");
-			alert.showAndWait();
+		if ((checkmate = GameLogic.CheckMate(pieces, current_player)))
 			canPlay = false;
-		}
-		else if (GameLogic.Check(pieces, current_player == PlayerWhite ? PlayerBlack : PlayerWhite))
-		{
-			Alert alert = new Alert(Alert.AlertType.INFORMATION);
-			alert.setTitle("Check !");
-			alert.setContentText("Player " + (current_player == PlayerWhite ? "White" : "Black") + " put your king in check !");
-			alert.showAndWait();
-			check = true;
-		}
-		else if (GameLogic.StaleMate(pieces, current_player))
-		{
-			Alert alert = new Alert(Alert.AlertType.INFORMATION);
-			alert.setTitle("Stalemate !");
-			alert.setContentText("Stalemate occurred !");
-			alert.showAndWait();
+		else if ((check = GameLogic.Check(pieces, current_player == PlayerWhite ? PlayerBlack : PlayerWhite)));
+		else if ((stalemate = GameLogic.StaleMate(pieces, current_player)))
 			canPlay = false;
-		}
-		else {
-			check = false;
-			checkmate = false;
-			stalemate = false;
-		}
 		current_player = (current_player == PlayerWhite ? PlayerBlack : PlayerWhite);
 	}
 	
