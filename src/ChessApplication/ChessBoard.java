@@ -81,8 +81,11 @@ public class ChessBoard extends Pane {
 			for (int j = 0; j < boardHeight; ++j)
 			{
 				board[i][j] = EMPTY;
-				if (pieces[i][j] != null)
+				if (pieces[i][j] != null) {
 					getChildren().remove(pieces[i][j].view);
+				}
+				boxes[i][j].SetSelected(false);
+				boxes[i][j].SetHighlighted(false);
 				pieces[i][j] = null;
 			}
 		// initialize the black pieces on the board
@@ -130,7 +133,7 @@ public class ChessBoard extends Pane {
 		int column = (int) (x / cell_width);
 		int line = (int) (y / cell_height);
 
-		if (canPlay)
+		if (canPlay && column < boardWidth && line < boardHeight)
 		{
 			if (pieces[column][line] != null && pieces[column][line].GetType() == current_player)
 			{
@@ -169,12 +172,6 @@ public class ChessBoard extends Pane {
 			{
 				if (boxes[column][line].IsHighlighted())
 					movePiece(column, line);
-				for (int i = 0; i < boardWidth; ++i)
-					for (int j = 0; j < boardHeight; ++j)
-					{
-						boxes[i][j].SetHighlighted(false);
-						boxes[i][j].SetSelected(false);
-					}
 				pieceSelected = null;
 				selectedPiecePos = null;
 			}
@@ -188,6 +185,12 @@ public class ChessBoard extends Pane {
 			getChildren().remove(pieces[x][y].view);
 		pieces[x][y] = pieceSelected;
 		pieces[(int) selectedPiecePos.x][(int) selectedPiecePos.y] = null;
+		for (int i = 0; i < boardWidth; ++i)
+			for (int j = 0; j < boardHeight; ++j)
+			{
+				boxes[i][j].SetHighlighted(false);
+				boxes[i][j].SetSelected(false);
+			}
 		if (GameLogic.CheckMate(pieces, current_player))
 		{
 			Alert alert = new Alert(Alert.AlertType.INFORMATION);
