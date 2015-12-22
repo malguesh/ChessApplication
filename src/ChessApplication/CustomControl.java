@@ -68,14 +68,17 @@ public class CustomControl extends Control {
 		setOnKeyPressed(new EventHandler<KeyEvent>() {
 			@Override
 			public void handle(KeyEvent event) {
-				if (event.getCode() == KeyCode.SPACE)
+				if (event.getCode() == KeyCode.SPACE) {
 					chessBoard.resetGame();
+					updateStatus();
+				}
 			}
 		});
 		
 		replayButton.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
 				chessBoard.resetGame();
+				updateStatus();
 			}
 		});
 	}
