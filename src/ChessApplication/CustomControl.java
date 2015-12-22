@@ -167,11 +167,10 @@ public class CustomControl extends Control {
 	//private fields of the class
 	private ChessBoard chessBoard;	// a Chess board
 	private GridPane gridPane;		// a GridPane to display the game status
-	private Label blackStatusLabel;
-	private Label blackStatusLabel2;
-	private Label whiteStatusLabel;
-	private Label whiteStatusLabel2;
-		
+	private Label blackStatusLabel; // label to display the numbers of every black pieces
+	private Label blackStatusLabel2; // label to display the status of the black player
+	private Label whiteStatusLabel; // label to display the numbers of every white pieces
+	private Label whiteStatusLabel2; // label to display the status of the white player
 	private Piece[][] pieces;		// pieces in the board
 
 	// numbers of every pieces present on the board
