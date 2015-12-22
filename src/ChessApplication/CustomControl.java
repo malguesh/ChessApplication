@@ -141,21 +141,26 @@ public class CustomControl extends Control {
 		+ black_bishops + " bishops, " 
 		+ black_king + " king, " 
 		+ black_queen + " queen");
-		if (GameLogic.CheckMate(pieces, chessBoard.current_player) && chessBoard.current_player == chessBoard.PlayerBlack) {
-			blackStatusLabel2.setText("Checkmate");
-		} else if (GameLogic.Check(pieces, chessBoard.current_player == chessBoard.PlayerBlack ? chessBoard.PlayerWhite : chessBoard.PlayerBlack)) {
-			blackStatusLabel2.setText("Check");
-		}
 		whiteStatusLabel.setText(white_pawns + " pawns, " 
 		+ white_rooks + " rooks, " 
 		+ white_knights + " knights, " 
 		+ white_bishops + " bishops, " 
 		+ white_king + " king, " 
 		+ white_queen + " queen");
-		if (GameLogic.CheckMate(pieces, chessBoard.current_player) && chessBoard.current_player == chessBoard.PlayerWhite) {
-			whiteStatusLabel.setText("Checkmate");
-		} else if (GameLogic.Check(pieces, chessBoard.current_player == chessBoard.PlayerWhite ? chessBoard.PlayerBlack : chessBoard.PlayerWhite)) {
+		if (chessBoard.checkmate == true && chessBoard.current_player == chessBoard.PlayerBlack) {
+			blackStatusLabel2.setText("Checkmate");
+		} else if (chessBoard.check == true && chessBoard.current_player == chessBoard.PlayerBlack) {
+			blackStatusLabel2.setText("Check");
+		} else if (chessBoard.checkmate == true && chessBoard.current_player == chessBoard.PlayerWhite) {
+			whiteStatusLabel2.setText("Checkmate");
+		} else if (chessBoard.check == true && chessBoard.current_player == chessBoard.PlayerWhite) {
 			whiteStatusLabel2.setText("Check");
+		} else if (chessBoard.checkmate == true) {
+			blackStatusLabel2.setText("Stalemate");
+			whiteStatusLabel2.setText("Stalemate");
+		} else {
+			blackStatusLabel2.setText("");
+			whiteStatusLabel2.setText("");
 		}
 	}
 
@@ -170,19 +175,19 @@ public class CustomControl extends Control {
 	private Piece[][] pieces;		// pieces in the board
 
 	// numbers of every pieces present on the board
-	private int black_pawns = 8;
-	private int black_rooks = 2;
-	private int black_knights = 2;
-	private int black_bishops = 2;
-	private int black_king = 1;
-	private int black_queen = 1;
+	private int black_pawns;
+	private int black_rooks;
+	private int black_knights;
+	private int black_bishops;
+	private int black_king;
+	private int black_queen;
 
-	private int white_pawns = 8;
-	private int white_rooks = 2;
-	private int white_knights = 2;
-	private int white_bishops = 2;
-	private int white_king = 1;
-	private int white_queen = 1;
+	private int white_pawns;
+	private int white_rooks;
+	private int white_knights;
+	private int white_bishops;
+	private int white_king;
+	private int white_queen;
 	
 	
 

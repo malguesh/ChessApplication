@@ -202,6 +202,7 @@ public class ChessBoard extends Pane {
 			alert.setTitle("Check !");
 			alert.setContentText("Player " + (current_player == PlayerWhite ? "White" : "Black") + " put your king in check !");
 			alert.showAndWait();
+			check = true;
 		}
 		else if (GameLogic.StaleMate(pieces, current_player))
 		{
@@ -210,6 +211,11 @@ public class ChessBoard extends Pane {
 			alert.setContentText("Stalemate occurred !");
 			alert.showAndWait();
 			canPlay = false;
+		}
+		else {
+			check = false;
+			checkmate = false;
+			stalemate = false;
 		}
 		current_player = (current_player == PlayerWhite ? PlayerBlack : PlayerWhite);
 	}
@@ -243,4 +249,8 @@ public class ChessBoard extends Pane {
 	public final int PlayerBlack = 2; // 2 is used to indicate that a cell in the board is occupied by a black piece
 	
 	int winner = 0;						// variable to determine who the current winner is: 0 - no current winner, 
+	
+	public boolean check = false;
+	public boolean checkmate = false;
+	public boolean stalemate = false;
 }
