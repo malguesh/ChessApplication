@@ -10,12 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.RowConstraints;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 
 public class CustomControl extends Control {
 	
@@ -184,6 +179,14 @@ public class CustomControl extends Control {
 			whiteStatusLabel2.setText("");
 		}
 		
+		if (chessBoard.current_player == chessBoard.PlayerBlack) {
+			blackPlayerLabel.setStyle("-fx-text-fill:white; -fx-background-color: black;");
+			whitePlayerLabel.setStyle("-fx-text-fill:black; -fx-background-color: rgba(0, 0, 0, 0);");
+		} else if (chessBoard.current_player == chessBoard.PlayerWhite) {
+			whitePlayerLabel.setStyle("-fx-text-fill:white; -fx-background-color: black;");
+			blackPlayerLabel.setStyle("-fx-text-fill:black; -fx-background-color: rgba(0, 0, 0, 0);");			
+		}
+		
 		if (LastPlayer != chessBoard.current_player && chessBoard.checkmate) {
 			Alert alert = new Alert(Alert.AlertType.INFORMATION);
 			alert.setTitle("CheckMate !");
@@ -199,14 +202,6 @@ public class CustomControl extends Control {
 			alert.setTitle("Stalemate !");
 			alert.setContentText("Stalemate occurred !");
 			alert.showAndWait();
-		}
-		
-		if (chessBoard.current_player == chessBoard.PlayerBlack) {
-			blackPlayerLabel.setStyle("-fx-text-fill:white; -fx-background-color: black;");
-			whitePlayerLabel.setStyle("-fx-text-fill:black; -fx-background-color: white;");
-		} else if (chessBoard.current_player == chessBoard.PlayerWhite) {
-			whitePlayerLabel.setStyle("-fx-text-fill:white; -fx-background-color: black;");
-			blackPlayerLabel.setStyle("-fx-text-fill:black; -fx-background-color: white;");			
 		}
 		LastPlayer = chessBoard.current_player;
 	}
