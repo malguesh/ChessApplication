@@ -33,22 +33,27 @@ public class CustomControl extends Control {
 		pieces = chessBoard.getPieces();
 		
 		gridPane = new GridPane();
+		blackPlayerLabel = new Label();
+		whitePlayerLabel = new Label();
 		blackStatusLabel = new Label();
 		blackStatusLabel2 = new Label();
 		whiteStatusLabel = new Label();
 		whiteStatusLabel2 = new Label();
 		replayButton = new Button("Replay");
 		
+		whitePlayerLabel.setStyle("-fx-text-fill:white; -fx-background-color: black;");
+		whitePlayerLabel.setText(" White ");
+		blackPlayerLabel.setText(" Black ");
 		blackStatusLabel.setText("8 pawns, 2 rooks, 2 knights, 2 bishops, 1 king, 1 queen");
 		
 		whiteStatusLabel.setText("8 pawns, 2 rooks, 2 knights, 2 bishops, 1 king, 1 queen");
 		
 		gridPane.setMinHeight(100);
 		gridPane.setHgap(50);
-		gridPane.addRow(0, new Label("Black : "));
+		gridPane.addRow(0, blackPlayerLabel);
 		gridPane.addRow(0, blackStatusLabel);
 		gridPane.addRow(0, blackStatusLabel2);
-		gridPane.addRow(1, new Label("White : "));
+		gridPane.addRow(1, whitePlayerLabel);
 		gridPane.addRow(1, whiteStatusLabel);
 		gridPane.addRow(1, whiteStatusLabel2);
 		gridPane.addRow(2, new Label(""));
@@ -131,7 +136,7 @@ public class CustomControl extends Control {
 						} else if (pieces[i][j].pieceType == EPieceType.QUEEN) {
 							black_queen = black_queen + 1;
 						}
-					}else if (pieces[i][j].GetType() == Piece.WHITE){
+					} else if (pieces[i][j].GetType() == Piece.WHITE){
 						if (pieces[i][j].pieceType == EPieceType.PAWN) {
 							white_pawns = white_pawns + 1;
 						} else if (pieces[i][j].pieceType == EPieceType.ROOK) {
@@ -162,6 +167,7 @@ public class CustomControl extends Control {
 		+ white_bishops + " bishops, " 
 		+ white_king + " king, " 
 		+ white_queen + " queen");
+		
 		if (chessBoard.checkmate == true && chessBoard.current_player == chessBoard.PlayerBlack) {
 			blackStatusLabel2.setText("Checkmate");
 		} else if (chessBoard.check == true && chessBoard.current_player == chessBoard.PlayerBlack) {
@@ -177,6 +183,7 @@ public class CustomControl extends Control {
 			blackStatusLabel2.setText("");
 			whiteStatusLabel2.setText("");
 		}
+		
 		if (LastPlayer != chessBoard.current_player && chessBoard.checkmate) {
 			Alert alert = new Alert(Alert.AlertType.INFORMATION);
 			alert.setTitle("CheckMate !");
@@ -193,13 +200,23 @@ public class CustomControl extends Control {
 			alert.setContentText("Stalemate occurred !");
 			alert.showAndWait();
 		}
+		
+		if (chessBoard.current_player == chessBoard.PlayerBlack) {
+			blackPlayerLabel.setStyle("-fx-text-fill:white; -fx-background-color: black;");
+			whitePlayerLabel.setStyle("-fx-text-fill:black; -fx-background-color: white;");
+		} else if (chessBoard.current_player == chessBoard.PlayerWhite) {
+			whitePlayerLabel.setStyle("-fx-text-fill:white; -fx-background-color: black;");
+			blackPlayerLabel.setStyle("-fx-text-fill:black; -fx-background-color: white;");			
+		}
 		LastPlayer = chessBoard.current_player;
 	}
 
 	//private fields of the class
 	private ChessBoard chessBoard;	// a Chess board
 	private GridPane gridPane;		// a GridPane to display the game status
-	private Button replayButton;
+	private Button replayButton;	// simple button to reset
+	private Label blackPlayerLabel; // label to display the black player
+	private Label whitePlayerLabel; // label to display the white player
 	private Label blackStatusLabel; // label to display the numbers of every black pieces
 	private Label blackStatusLabel2; // label to display the status of the black player
 	private Label whiteStatusLabel; // label to display the numbers of every white pieces
